@@ -45,7 +45,10 @@
                         </div>
                         <div class="profile_info">
                             <span>Bienvenido,</span>
-                            <h2>@ViewBag.NombreUsuario</h2>
+                            <h2>
+                                @ViewBag.NombreUsuario
+
+                            </h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -58,21 +61,24 @@
                             <h3>General</h3>
                             <ul class="nav side-menu">
 
-                                <li><a href=".."><i class="fa fa-credit-card"></i> Ventas</a></li>
-                                <li><a href=".."><i class="fa fa-dropbox"></i> Compras</a></li>
-                                <li><a href=".."><i class="fa fa-money"></i> Caja</a></li>
-                                <li><a href=".."><i class="fa fa-calculator"></i> Egresos</a></li>
-                                <li><a href=".."><i class="fa fa-archive"></i> Productos</a></li>
+                                <li><a href="@Url.Action("Index", "Ventas")"><i class="fa fa-credit-card"></i> Ventas</a></li>
+                                @if (@ViewBag.Rol == 1)
+                                {
+                                    <li><a href=".."><i class="fa fa-dropbox"></i> Compras</a></li>
+                                    <li><a href=".."><i class="fa fa-money"></i> Caja</a></li>
+                                    <li><a href=".."><i class="fa fa-calculator"></i> Egresos</a></li>
+                                    <li><a href=".."><i class="fa fa-archive"></i> Productos</a></li>
 
 
-                                <li>
-                                    <a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="..">Reporte 1</a></li>
-                                        <li><a href="..">Reporte 2</a></li>
-                                        <li><a href="..">Reporte 3</a></li>
-                                    </ul>
-                                </li>
+                                    <li>
+                                        <a><i class="fa fa-bar-chart"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="..">Reporte 1</a></li>
+                                            <li><a href="..">Reporte 2</a></li>
+                                            <li><a href="..">Reporte 3</a></li>
+                                        </ul>
+                                    </li>
+                                }
                             </ul>
                         </div>
 
@@ -97,7 +103,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     @*<a class="dropdown-item" href="javascript:;"> Profile</a>*@
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Salir</a>
+                                    <a class="dropdown-item" href="@Url.Action("Logout", "Home")"><i class="fa fa-sign-out pull-right"></i> Salir</a>
                                 </div>
                             </li>
 

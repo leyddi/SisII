@@ -1,0 +1,72 @@
+﻿@model Sistema_Comercial.Models.Ventas
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Ventas</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FECHAREGISTRO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FECHAREGISTRO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FECHAREGISTRO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <table class="table">
+                <tr>
+                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].CODIGO, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].CANTIDAD, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].PVP, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].TOTAL, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                    <td>Eliminar</td>
+                </tr>
+                <tbody>
+                    @for (var i = 0; i < Model.PRODUCTOS.Count; i++)
+                    {
+
+
+
+                        <tr>
+                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].CODIGO)</td>
+                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].DESCRIPCION)</td>
+                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].CANTIDAD)@Html.ValidationMessageFor(model => model.PRODUCTOS[i].CANTIDAD)</td>
+                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].PVP)</td>
+                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].TOTAL)</td>
+                            <td></td>
+                        </tr>
+
+                    }
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Add New Data" title="Add New Data" onclick="javascript:return ValidateData();" />
+                        </td>
+                    </tr>
+                    </tbody>
+            </table>
+
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Create" id="addRow" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts
+ {
+    <script>
+        $("#addRow").click(function () {
+            $.get('/Ventas/AddRow', function (template) {
+                $('.table > tbody:last'').after(template);//add last the whole data
+            });
+        });
+    </script>
+}

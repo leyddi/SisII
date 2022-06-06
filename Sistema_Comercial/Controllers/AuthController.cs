@@ -24,7 +24,7 @@ namespace Sistema_Comercial.Controllers
                 SqlCommand sqlCommand = new SqlCommand("uspValidarCredencialesLogin", connection);
                 sqlCommand.Parameters.AddWithValue("@PI_Usuario", usuario.NombreUsuario);
                 sqlCommand.Parameters.AddWithValue("@PI_Contrasena", usuario.Contrasena);
-                sqlCommand.Parameters.Add("@PI_IdUser", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                sqlCommand.Parameters.Add("@PI_IdUser", SqlDbType.Int).Direction = ParameterDirection.Output;
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
                 connection.Open();

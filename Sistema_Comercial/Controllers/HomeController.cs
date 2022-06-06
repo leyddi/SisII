@@ -15,7 +15,8 @@ namespace AlelaProject.Controllers
         {
             Usuario usuario = (Usuario)@Session["User"];
             ViewBag.NombreUsuario = usuario.Nombres;
-            return View();
+            ViewBag.Rol = usuario.IdRol;
+            return View(usuario);
         }
 
         public ActionResult About()
@@ -30,6 +31,11 @@ namespace AlelaProject.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login", "Auth");
         }
     }
 }
