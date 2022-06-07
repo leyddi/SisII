@@ -1,0 +1,33 @@
+USE SistemaComercial
+GO
+-- =============================================
+-- Author:		Leyddi Borjas
+-- Create date: 04/06/2022
+-- Description:	Registra un nuevo producto
+-- =============================================
+CREATE PROCEDURE uspRegistrarProducto
+@PI_CODIGO VARCHAR(50),
+@PI_DESCRIPCION VARCHAR(50),
+@PI_PVP DECIMAL(6,2) = 0,
+@PI_CANTIDAD DECIMAL(6,2) = 0,
+@PI_MARCA VARCHAR(50) = NULL,
+@PI_MODELO VARCHAR(50) = NULL,
+@PI_OUT INT OUT
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+	 
+	SET @PI_OUT = ISNULL((SELECT -1 FROM PRODUCTOS WITH(NOLOCK) WHERE CODIGO = @PI_CODIGO),0)
+
+	IF @PI_OUT <> -1
+	BEGIN
+
+		INSERT INTO PRODUCTOS (CODIGO, DESCRIPCION,PVP, CANTIDAD, MARCA, MODELO) VALUES (@PI_CODIGO,@PI_DESCRIPCION,@PI_PVP,@PI_CANTIDAD,@PI_MARCA,@PI_MODELO)
+		SET @PI_OUT = SCOPE_IDENTITY()
+	END
+
+END
+GO
+
+
