@@ -13,7 +13,7 @@ namespace Sistema_Comercial.Models
         public string CODIGO { get; set; }
         public string DESCRIPCION { get; set; }
         public decimal PVP { get; set; }
-        public decimal TOTAL { get; set; }
+        public decimal TOTAL { get; set; } 
         [Range(0, 9999.99, ErrorMessage = "No se permiten números negativos")]
         [Required]
         [DataType(DataType.Currency)]

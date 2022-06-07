@@ -29,14 +29,14 @@
                     @for (var i = 0; i < Model.PRODUCTOS.Count; i++)
                     {
 
-
-
                         <tr>
-                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].CODIGO)</td>
-                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].DESCRIPCION)</td>
-                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].CANTIDAD)@Html.ValidationMessageFor(model => model.PRODUCTOS[i].CANTIDAD)</td>
-                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].PVP)</td>
-                            <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].TOTAL)</td>
+                            <td>@Html.EditorFor(model => model.PRODUCTOS[i].CODIGO, new { htmlAttributes = new { @id="Codigo", @required = "required", @class = "form-control" } })</td>
+                            <td>@Html.EditorFor(model => model.PRODUCTOS[i].DESCRIPCION, new { htmlAttributes = new {@id = "Descripcion", @readonly = "readonly", @class = "form-control" } })</td>
+                            <td>@Html.EditorFor(model => model.PRODUCTOS[i].CANTIDAD, new { htmlAttributes = new { @id = "Cantidad", @type = "number", @min = "0", @step = "0.01", @Value = 0, @class = "form-control" } })</td>
+                            <td>@Html.EditorFor(model => model.PRODUCTOS[i].PVP, new { htmlAttributes = new { @id = "Pvp", @class = "form-control" } })</td>
+                            <td>
+                                @Html.EditorFor(model => model.PRODUCTOS[i].TOTAL, new { htmlAttributes = new { @id = "Total", @readonly = "readonly", @class = "form-control"} })
+                            </td>
                             <td> <button type="button" class="btn btn-default" id="addRow"><i class="fa fa-plus"></i></button></td>
                         </tr>
 
@@ -53,13 +53,24 @@
 @section Scripts
  {
     <script>
-        $("#addRow").click(function () {
+        $("#addRow").bind("click", function () {
             $.get('/Ventas/AddRow', function (template) {
-                $('.table > tbody:last').after(template);//add last the whole data
+                $('.table > tbody:last').append(template);           
             });
         });
-        $("#deleteRow").click(function () {
-            $(this).closest('tr').hide('slow');
+        $(document).on('blur', '#Pvp', function () {
+            debugger;
+            var cantidad = $(this).parent().parent().find('#Cantidad').val();
+            var pvp = $(this).val();
+            var total = cantidad * pvp;
+            $(this).parent().parent().find('#Total').val(total);
+        });
+
+        $(document).on('blur', '#Cantidad', function () {
+            var cantidad = $(this).parent().parent().find('#Pvp').val();
+            var pvp = $(this).val();
+            var total = cantidad * pvp;
+            $(this).parent().parent().find('#Total').val(total);
         });
     </script>
 }
