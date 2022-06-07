@@ -1,0 +1,10 @@
+﻿@model Sistema_Comercial.Models.Productos
+<tr>
+    <td>@Html.TextBoxFor(model => model.CODIGO)</td>
+    <td>@Html.TextBoxFor(model => model.DESCRIPCION)</td>
+    <td>@Html.TextBoxFor(model => model.CANTIDAD)@Html.ValidationMessageFor(model => model.CANTIDAD)</td>
+    <td>@Html.TextBoxFor(model => model.PVP)</td>
+    <td>@Html.TextBoxFor(model => model.TOTAL)</td>
+    <td> <button type="button" class="btn btn-default" id="deleteRow" onclick="$(this).parent().parent().remove();"><i class="fa fa-trash"></i></button></td>
+</tr>
+

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Sistema_Comercial.Models.Productos>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CODIGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PVP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MARCA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MODELO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHAREGISTRO)
+        </th>
+        <th></th>
+    </tr>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.CODIGO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DESCRIPCION)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PVP)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CANTIDAD)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MARCA)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MODELO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FECHAREGISTRO)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+</tr>
+    }
+}
+</table>

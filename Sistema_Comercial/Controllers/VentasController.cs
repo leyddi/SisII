@@ -26,7 +26,7 @@ namespace Sistema_Comercial.Controllers
         public ActionResult AddRow()
         {
             Productos productos = new Productos();
-            return PartialView("~/Views/Ventas/index.cshtml", productos);
+            return PartialView("~/Views/Ventas/Row.cshtml", productos);
         }
     }
 }

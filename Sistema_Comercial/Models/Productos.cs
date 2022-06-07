@@ -18,8 +18,8 @@ namespace Sistema_Comercial.Models
         [Required]
         [DataType(DataType.Currency)]
         public decimal CANTIDAD { get; set; }
-        public decimal FECHAREGISTRO { get; set; }
-        public decimal MARCA { get; set; }
-        public decimal MODELO { get; set; }
+        public DateTime FECHAREGISTRO { get; set; }
+        public string MARCA { get; set; }
+        public string MODELO { get; set; }
     }
 }

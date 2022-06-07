@@ -23,7 +23,7 @@
                     <td> @Html.LabelFor(model => model.PRODUCTOS[0].CANTIDAD, htmlAttributes: new { @class = "control-label col-md-2" })</td>
                     <td> @Html.LabelFor(model => model.PRODUCTOS[0].PVP, htmlAttributes: new { @class = "control-label col-md-2" })</td>
                     <td> @Html.LabelFor(model => model.PRODUCTOS[0].TOTAL, htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                    <td>Eliminar</td>
+                    <td></td>
                 </tr>
                 <tbody>
                     @for (var i = 0; i < Model.PRODUCTOS.Count; i++)
@@ -37,26 +37,16 @@
                             <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].CANTIDAD)@Html.ValidationMessageFor(model => model.PRODUCTOS[i].CANTIDAD)</td>
                             <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].PVP)</td>
                             <td>@Html.TextBoxFor(model => model.PRODUCTOS[i].TOTAL)</td>
-                            <td></td>
+                            <td> <button type="button" class="btn btn-default" id="addRow"><i class="fa fa-plus"></i></button></td>
                         </tr>
 
                     }
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" value="Add New Data" title="Add New Data" onclick="javascript:return ValidateData();" />
-                        </td>
-                    </tr>
                     </tbody>
             </table>
 
         </div>
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Create" id="addRow" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 }
 
@@ -65,8 +55,11 @@
     <script>
         $("#addRow").click(function () {
             $.get('/Ventas/AddRow', function (template) {
-                $('.table > tbody:last'').after(template);//add last the whole data
+                $('.table > tbody:last').after(template);//add last the whole data
             });
+        });
+        $("#deleteRow").click(function () {
+            $(this).closest('tr').hide('slow');
         });
     </script>
 }
