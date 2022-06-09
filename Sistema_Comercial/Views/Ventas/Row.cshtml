@@ -6,7 +6,7 @@
         @Html.EditorFor(model => model.CANTIDAD, new { htmlAttributes = new { @id = "Cantidad", @type = "number", @min = "0", @step = "0.01", @Value = 0, @class = "form-control" } })
 
     </td>
-    <td>@Html.EditorFor(model => model.PVP, new { htmlAttributes = new { @id = "Pvp", @class = "form-control" } })</td>
+    <td>@Html.EditorFor(model => model.PVP, new { htmlAttributes = new { @id = "Pvp", @readonly = "readonly", @class = "form-control" } })</td>
     <td>@Html.EditorFor(model => model.TOTAL, new { htmlAttributes = new { @id = "Total", @readonly = "readonly", @class = "form-control" } })</td>
 
     <td> <button type="button" class="btn btn-default" id="deleteRow" onclick="$(this).parent().parent().remove();"><i class="fa fa-trash"></i></button></td>

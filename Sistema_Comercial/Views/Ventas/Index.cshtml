@@ -4,73 +4,150 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Ventas</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.FECHAREGISTRO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FECHAREGISTRO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FECHAREGISTRO, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4>Ventas</h4>
+    <hr />
+    <h6>Cliente</h6>
+    <hr />
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.CLIENTE.TIPODOCUMENTO, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <select class="form-control" id="model.CLIENTE.TIPODOCUMENTO">
+                <option value="1">Cédula</option>
+                <option value="2">RIF</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.CLIENTE.TIPODOCUMENTO, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <table class="table">
-                <tr>
-                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].CODIGO, htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].CANTIDAD, htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].PVP, htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                    <td> @Html.LabelFor(model => model.PRODUCTOS[0].TOTAL, htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                    <td></td>
-                </tr>
-                <tbody>
-                    @for (var i = 0; i < Model.PRODUCTOS.Count; i++)
-                    {
-
-                        <tr>
-                            <td>@Html.EditorFor(model => model.PRODUCTOS[i].CODIGO, new { htmlAttributes = new { @id="Codigo", @required = "required", @class = "form-control" } })</td>
-                            <td>@Html.EditorFor(model => model.PRODUCTOS[i].DESCRIPCION, new { htmlAttributes = new {@id = "Descripcion", @readonly = "readonly", @class = "form-control" } })</td>
-                            <td>@Html.EditorFor(model => model.PRODUCTOS[i].CANTIDAD, new { htmlAttributes = new { @id = "Cantidad", @type = "number", @min = "0", @step = "0.01", @Value = 0, @class = "form-control" } })</td>
-                            <td>@Html.EditorFor(model => model.PRODUCTOS[i].PVP, new { htmlAttributes = new { @id = "Pvp", @class = "form-control" } })</td>
-                            <td>
-                                @Html.EditorFor(model => model.PRODUCTOS[i].TOTAL, new { htmlAttributes = new { @id = "Total", @readonly = "readonly", @class = "form-control"} })
-                            </td>
-                            <td> <button type="button" class="btn btn-default" id="addRow"><i class="fa fa-plus"></i></button></td>
-                        </tr>
-
-                    }
-                    </tbody>
-            </table>
-
+        @Html.LabelFor(model => model.CLIENTE.NUMERODOCUMENTO, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.CLIENTE.NUMERODOCUMENTO, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CLIENTE.NUMERODOCUMENTO, "", new { @class = "text-danger" })
         </div>
+        @Html.LabelFor(model => model.CLIENTE.NOMBRES, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.CLIENTE.NOMBRES, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CLIENTE.NOMBRES, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br /><br /><br />
 
+</div>
+
+<div class="form-horizontal">
+
+    <h6>Productos</h6>
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].CODIGO, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].CANTIDAD, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].PVP, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].TOTAL, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td></td>
+            </tr>
+            <tbody>
+                @for (var i = 0; i < Model.PRODUCTOS.Count; i++)
+                {
+
+                    <tr>
+                        <td>@Html.EditorFor(model => model.PRODUCTOS[i].CODIGO, new { htmlAttributes = new { @id = "Codigo", @required = "required", @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(model => model.PRODUCTOS[i].DESCRIPCION, new { htmlAttributes = new { @id = "Descripcion", @readonly = "readonly", @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(model => model.PRODUCTOS[i].CANTIDAD, new { htmlAttributes = new { @id = "Cantidad", @type = "number", @min = "0", @step = "0.01", @Value = 0, @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(model => model.PRODUCTOS[i].PVP, new { htmlAttributes = new { @id = "Pvp", @readonly = "readonly", @class = "form-control" } })</td>
+                        <td>
+                            @Html.EditorFor(model => model.PRODUCTOS[i].TOTAL, new { htmlAttributes = new { @id = "Total", @readonly = "readonly", @class = "form-control" } })
+                        </td>
+                        <td> <button type="button" class="btn btn-default" id="addRow"><i class="fa fa-plus"></i></button></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
 
     </div>
-}
 
-@section Scripts
+
+</div>
+
+<div class="form-horizontal">
+    <h6>Pago</h6>
+    <hr />
+    <div class="form-group">
+         <label class="control-label col-md-2">MONTO TOTAL : <span id="MontoTotal"></span> </label>
+    </div>
+</div>
+    }
+
+    @section Scripts
  {
-    <script>
-        $("#addRow").bind("click", function () {
-            $.get('/Ventas/AddRow', function (template) {
-                $('.table > tbody:last').append(template);           
+        <script>
+            $("#addRow").bind("click", function () {
+                $.get('/Ventas/AddRow', function (template) {
+                    $('.table > tbody:last').append(template);
+                });
             });
-        });
-        $(document).on('blur', '#Pvp', function () {
-            debugger;
-            var cantidad = $(this).parent().parent().find('#Cantidad').val();
-            var pvp = $(this).val();
-            var total = cantidad * pvp;
-            $(this).parent().parent().find('#Total').val(total);
-        });
+            $(document).on('blur', '#Pvp', function () {
+                debugger;
+                var cantidad = $(this).parent().parent().find('#Cantidad').val();
+                var pvp = $(this).val();
+                var total = cantidad * pvp;
+                $(this).parent().parent().find('#Total').val(total);
+            });
 
-        $(document).on('blur', '#Cantidad', function () {
-            var cantidad = $(this).parent().parent().find('#Pvp').val();
-            var pvp = $(this).val();
-            var total = cantidad * pvp;
-            $(this).parent().parent().find('#Total').val(total);
-        });
-    </script>
-}
+            $(document).on('blur', '#Cantidad', function () {
+                var codigo = $(this).parent().parent().find('#Codigo').val();
+                var producto = getProducto(codigo);
+                var cantidad = $(this).val();
+                if (parseFloat(cantidad) > producto["CANTIDAD"]) {
+                    debugger;
+                    alert("La cantidad supera el stock existente. Stock actual: " + producto["CANTIDAD"]);
+                    $(this).val(0);
+                } else {
+                    var pvp = $(this).parent().parent().find('#Pvp').val();
+                    var total = cantidad * pvp;
+                    $(this).parent().parent().find('#Total').val(total);
+
+                    var suma = 0;
+                    $(".table").find('tr').each(function (i, el) {
+                        if (i > 0) {
+                            var $tds = $(this).find('td');
+                            console.log($tds.eq(4));
+                            suma = parseFloat($tds.eq(4).find("#Total").val()) + suma;
+                        }
+                        
+                    });
+                    $("#MontoTotal").text(suma);
+                }
+
+
+            });
+            $(document).on('blur', '#Codigo', function () {
+                var producto = getProducto($(this).val());
+                $(this).parent().parent().find('#Pvp').val(producto["PVP"]);
+                $(this).parent().parent().find('#Descripcion').val(producto["DESCRIPCION"]);
+                debugger;
+            });
+            function getProducto(code) {
+                var producto;
+
+                $.ajax({
+                    'async': false,
+                    'type': "GET",
+                    'global': false,
+                    'dataType': 'html',
+                    'url': "/Ventas/GetProduct?code=" + code,
+                    'data': {},
+                    'success': function (data) {
+                        debugger;
+                        producto = JSON.parse(data);
+
+                    }
+                });
+                debugger;
+                return producto;
+            }
+        </script>
+    }
