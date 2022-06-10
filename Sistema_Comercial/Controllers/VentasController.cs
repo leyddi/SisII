@@ -25,7 +25,12 @@ namespace Sistema_Comercial.Controllers
             
             return View(ventas);
         }
-        [HttpGet]
+        [HttpPost]
+        public ActionResult Index(Ventas ventas)
+        {
+            return View();
+        }
+            [HttpGet]
         public ActionResult AddRow()
         {
             Productos productos = new Productos();
@@ -94,6 +99,63 @@ namespace Sistema_Comercial.Controllers
             }
 
             return Json(monedas, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult GetCliente(string TipoDocumento, string NumeroDocumento)
+        {
+            Cliente cliente = new Cliente();
+            ConnectionStringSettings cadenaDataBase = ConfigurationManager.ConnectionStrings["SistemaConnection"];
+
+            using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
+            {
+
+                SqlCommand sqlCommand = new SqlCommand("uspObtenerCliente", connection);
+                sqlCommand.Parameters.AddWithValue("@PI_TIPO_DOCUMENTO", TipoDocumento);
+                sqlCommand.Parameters.AddWithValue("@PI_NUMERO_DOCUMENTO", NumeroDocumento);
+
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader objReader = sqlCommand.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        cliente.NOMBRES = objReader.GetString(objReader.GetOrdinal("NOMBRES"));
+                        cliente.ID = objReader.GetInt32(objReader.GetOrdinal("ID"));
+                        cliente.ID_TIPODOCUMENTO = int.Parse(TipoDocumento);
+                        cliente.NUMERODOCUMENTO = NumeroDocumento;
+                    }
+                }
+                connection.Close();
+            }
+
+            return Json(cliente, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SetCliente(Cliente cliente)
+        {
+            ConnectionStringSettings cadenaDataBase = ConfigurationManager.ConnectionStrings["SistemaConnection"];
+
+            using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
+            {
+
+                SqlCommand sqlCommand = new SqlCommand("uspRegistrarCliente", connection);
+                sqlCommand.Parameters.AddWithValue("@PI_TIPO_DOCUMENTO", cliente.ID_TIPODOCUMENTO);
+                sqlCommand.Parameters.AddWithValue("@PI_NUMERO_DOCUMENTO", cliente.NUMERODOCUMENTO);
+                sqlCommand.Parameters.AddWithValue("@PI_NOMBRES", cliente.NOMBRES);
+                sqlCommand.Parameters.Add("@PI_ID_CLIENTE", SqlDbType.Int).Direction = ParameterDirection.Output;
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                sqlCommand.ExecuteNonQuery();
+
+                cliente.ID = Convert.ToInt32(sqlCommand.Parameters["@PI_ID_CLIENTE"].Value);
+                connection.Close();
+            }
+
+            return Json(cliente);
         }
     }
 }

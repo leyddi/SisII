@@ -474,6 +474,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\DetalleCaja.cs" />
+    <Compile Include="Models\DetallePago.cs" />
+    <Compile Include="Models\Moneda.cs" />
+    <Compile Include="Models\Pago.cs" />
     <Compile Include="Models\Productos.cs" />
     <Compile Include="Models\Serie.cs" />
     <Compile Include="Models\Usuario.cs" />

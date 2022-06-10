@@ -14,5 +14,6 @@ namespace Sistema_Comercial.Models
         public Cliente CLIENTE { get; set; }
         public Serie SERIE { get; set; }
         public List<Productos> PRODUCTOS { get; set; }
+        public Pago PAGO { get; set; }
     }
 }
