@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Sistema_Comercial.Models.Ventas>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHAREGISTRO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TOTAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COMPROBANTE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRES)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.USUARIO.Nombres)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FECHAREGISTRO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TOTAL)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.COMPROBANTE)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRES)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.USUARIO.Nombres)
+    </td>
+</tr>
+}
+
+</table>

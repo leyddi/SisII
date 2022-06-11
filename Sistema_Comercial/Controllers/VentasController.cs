@@ -28,9 +28,94 @@ namespace Sistema_Comercial.Controllers
         [HttpPost]
         public ActionResult Index(Ventas ventas)
         {
-            return View();
+            Usuario usuario = (Usuario)@Session["User"];
+
+            ConnectionStringSettings cadenaDataBase = ConfigurationManager.ConnectionStrings["SistemaConnection"];
+
+            using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
+            {
+
+                SqlCommand sqlCommand = new SqlCommand("uspRegistrarVenta", connection);
+                sqlCommand.Parameters.AddWithValue("@PI_MONTO", ventas.TOTAL);
+                sqlCommand.Parameters.AddWithValue("@PI_ID_CLIENTE", ventas.CLIENTE.ID);
+                sqlCommand.Parameters.AddWithValue("@PI_ID_USUARIO", usuario.Id);
+
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                SqlDataReader objReader = sqlCommand.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        ventas.ID = objReader.GetInt32(objReader.GetOrdinal("ID_VENTA"));
+                        ventas.PAGO.ID = objReader.GetInt32(objReader.GetOrdinal("ID_PAGO"));
+                        break;
+                    }
+                }
+                connection.Close();
+            }
+            foreach (Productos producto in ventas.PRODUCTOS) {
+                using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
+                {
+
+                    SqlCommand sqlCommand = new SqlCommand("uspRegistrarDetalleVenta", connection);
+                    sqlCommand.Parameters.AddWithValue("@PI_CANTIDAD", producto.CANTIDAD);
+                    sqlCommand.Parameters.AddWithValue("@PI_ID_PRODUCTO", producto.ID);
+                    sqlCommand.Parameters.AddWithValue("@PI_ID_VENTAS", ventas.ID);
+
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+                    sqlCommand.ExecuteNonQuery();                    
+                    connection.Close();
+                }
+            }
+            foreach (DetallePago detallePago in ventas.PAGO.DETALLEPAGOS)
+            {
+                using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
+                {
+
+                    SqlCommand sqlCommand = new SqlCommand("uspRegistrarDetalleCaja", connection);
+                    sqlCommand.Parameters.AddWithValue("@PI_MONTO", detallePago.DETALLECAJA.MONTO);
+                    sqlCommand.Parameters.AddWithValue("@PI_MONTO_BS", detallePago.DETALLECAJA.MONTO_BS);
+                    sqlCommand.Parameters.AddWithValue("@PI_TIPO_CAMBIO", detallePago.DETALLECAJA.TIPO_CAMBIO);
+                    sqlCommand.Parameters.AddWithValue("@PI_ID_VENTA", ventas.ID);
+                    sqlCommand.Parameters.AddWithValue("@PI_ID_MONEDA", detallePago.DETALLECAJA.ID_MONEDA);
+                    sqlCommand.Parameters.AddWithValue("@PI_ID_PAGO", ventas.PAGO.ID);
+
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+
+            using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
+            {
+
+                SqlCommand sqlCommand = new SqlCommand("uspRegistrarVuelto", connection);
+                sqlCommand.Parameters.AddWithValue("@PI_ID_VENTA", ventas.ID);
+                sqlCommand.Parameters.AddWithValue("@PI_ID_PAGO", ventas.PAGO.ID);
+
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+                sqlCommand.ExecuteNonQuery();
+                connection.Close();
+            }
+
+            usuario = (Usuario)@Session["User"];
+             ventas = new Ventas();
+            ViewBag.NombreUsuario = usuario.Nombres;
+            ViewBag.Rol = usuario.IdRol;
+            ventas.PRODUCTOS = new List<Productos>();
+            ventas.PRODUCTOS.Add(new Productos { ID = 0 });
+
+            return View(ventas);
         }
-            [HttpGet]
+        [HttpGet]
         public ActionResult AddRow()
         {
             Productos productos = new Productos();

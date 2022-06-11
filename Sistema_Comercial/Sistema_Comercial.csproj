@@ -469,6 +469,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2166,6 +2167,8 @@
     <Content Include="Views\Ventas\Row.cshtml" />
     <Content Include="Views\Productos\Index.cshtml" />
     <Content Include="Views\Productos\List.cshtml" />
+    <Content Include="Views\Reportes\Ventas.cshtml" />
+    <Content Include="Views\Reportes\DetalleVentas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Vendors\moment\moment.d.ts" />
