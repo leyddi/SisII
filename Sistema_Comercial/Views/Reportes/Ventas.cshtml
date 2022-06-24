@@ -1,43 +1,53 @@
-﻿@model IEnumerable<Sistema_Comercial.Models.Ventas>
+﻿@model PagedList.IPagedList<Sistema_Comercial.Models.Ventas>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FECHAREGISTRO)
+            FECHA REGISTRO
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TOTAL)
+            TOTAL
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.COMPROBANTE)
+            COMPROBANTE
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRES)
+            NOMBRE CLIENTE
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.USUARIO.Nombres)
+            VENDEDOR
         </th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.FECHAREGISTRO)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TOTAL)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.COMPROBANTE)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRES)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.USUARIO.Nombres)
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FECHAREGISTRO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TOTAL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COMPROBANTE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.USUARIO.Nombres)
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+<br />
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Ventas",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

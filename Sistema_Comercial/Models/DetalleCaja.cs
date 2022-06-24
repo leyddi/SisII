@@ -9,8 +9,11 @@ namespace Sistema_Comercial.Models
     {
         public decimal MONTO { get; set; }
         public int ID_MONEDA { get; set; }
+        public string MONEDA { get; set; }
         public decimal MONTO_BS { get; set; }
         public decimal TIPO_CAMBIO { get; set; }
         public int ID_CAJA { get; set; }
+        public string TIPO { get; set; }
+
     }
 }

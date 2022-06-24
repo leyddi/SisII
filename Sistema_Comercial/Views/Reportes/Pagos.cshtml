@@ -1,0 +1,81 @@
+﻿@model PagedList.IPagedList<Sistema_Comercial.Models.Ventas>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+<table class="table">
+    <tr>
+        <th>
+           FECHA REGISTRO
+        </th>
+        <th>
+            TOTAL
+        </th>
+        <th>
+            COMPROBANTE
+        </th>
+        <th>
+            NOMBRE CLIENTE
+        </th>
+        <th>
+            VENDEDOR
+        </th>
+        <th>
+            MONEDA
+        </th>
+        <th>
+            MONTO
+        </th>
+        <th>
+            TC
+        </th>
+        <th>
+            MONTO BS
+        </th>
+        <th>
+            TIPO
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FECHAREGISTRO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TOTAL)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.COMPROBANTE)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CLIENTE.NOMBRES)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.USUARIO.Nombres)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PAGO.DETALLEPAGOS[0].DETALLECAJA.MONEDA)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PAGO.DETALLEPAGOS[0].DETALLECAJA.MONTO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PAGO.DETALLEPAGOS[0].DETALLECAJA.TIPO_CAMBIO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PAGO.DETALLEPAGOS[0].DETALLECAJA.MONTO_BS)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PAGO.DETALLEPAGOS[0].DETALLECAJA.TIPO)
+    </td>
+</tr>}
+
+</table>
+
+<br />
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Pagos",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

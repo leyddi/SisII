@@ -31,6 +31,25 @@ namespace Sistema_Comercial.Controllers
             Usuario usuario = (Usuario)@Session["User"];
 
             ConnectionStringSettings cadenaDataBase = ConfigurationManager.ConnectionStrings["SistemaConnection"];
+            if (ventas.CLIENTE.ID == 0 || ventas.CLIENTE.ID == null)
+            {
+                using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
+                {
+
+                    SqlCommand sqlCommand = new SqlCommand("uspRegistrarCliente", connection);
+                    sqlCommand.Parameters.AddWithValue("@PI_TIPO_DOCUMENTO", ventas.CLIENTE.ID_TIPODOCUMENTO);
+                    sqlCommand.Parameters.AddWithValue("@PI_NUMERO_DOCUMENTO", ventas.CLIENTE.NUMERODOCUMENTO);
+                    sqlCommand.Parameters.AddWithValue("@PI_NOMBRES", ventas.CLIENTE.NOMBRES);
+                    sqlCommand.Parameters.Add("@PI_ID_CLIENTE", SqlDbType.Int).Direction = ParameterDirection.Output;
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    connection.Open();
+                    sqlCommand.ExecuteNonQuery();
+
+                    ventas.CLIENTE.ID = Convert.ToInt32(sqlCommand.Parameters["@PI_ID_CLIENTE"].Value);
+                    connection.Close();
+                }
+            }
 
             using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
             {

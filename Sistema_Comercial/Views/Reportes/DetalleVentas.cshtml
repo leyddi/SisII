@@ -1,34 +1,36 @@
-﻿@model IEnumerable<Sistema_Comercial.Models.Ventas>
+﻿@model PagedList.IPagedList<Sistema_Comercial.Models.Ventas>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FECHAREGISTRO)
+            FECHA REGISTRO
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TOTAL)
+            TOTAL
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.COMPROBANTE)
+            COMPROBANTE
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CLIENTE.NOMBRES)
+            NOMBRE CLIENTE
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.USUARIO.Nombres)
+            VENDEDOR
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PRODUCTOS[0].DESCRIPCION)
+            PRODUCTO
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PRODUCTOS[0].PVP)
+            PVP
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PRODUCTOS[0].CANTIDAD)
+            CANTIDAD
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PRODUCTOS[0].TOTAL)
+            TOTAL
         </th>
 
     </tr>
@@ -63,7 +65,12 @@
     <td>
         @Html.DisplayFor(modelItem => item.PRODUCTOS[0].TOTAL)
     </td>
-</tr>
-    }
+</tr>}
 
 </table>
+<br />
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("DetalleVentas",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+

@@ -1,0 +1,25 @@
+USE SistemaComercial
+GO
+
+-- =============================================
+-- Author:		Leyddi Borjas
+-- Create date: 04/06/2022
+-- Description:	Listar todas las ventas a detalle
+-- Example:  EXEC uspListarVentas 
+-- =============================================
+CREATE PROCEDURE uspListarVentasDetalle
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+		SELECT VEN.ID,ISNULL(VEN.COMPROBANTE,'') AS COMPROBANTE, VEN.FECHAREGISTRO,VEN.TOTAL, CLI.NOMBRES AS CLIENTE, USU.NOMBRES AS VENDEDOR, PRO.DESCRIPCION , DEV.PVP, DEV.CANTIDAD, DEV.PVP_TOTAL
+		FROM VENTAS VEN WITH(NOLOCK) 
+		INNER JOIN CLIENTE CLI WITH(NOLOCK) ON CLI.ID = VEN.ID_CLIENTE
+		INNER JOIN USUARIO USU WITH(NOLOCK) ON USU.ID = VEN.ID_USUARIO
+		INNER JOIN DETALLE_VENTAS DEV WITH(NOLOCK) ON VEN.ID = DEV.ID_VENTAS
+		INNER JOIN PRODUCTOS PRO WITH(NOLOCK) ON PRO.ID = DEV.ID_PRODUCTO
+		ORDER BY VEN.FECHAREGISTRO DESC
+END
+GO
