@@ -14,6 +14,7 @@ namespace Sistema_Comercial.Models
         public decimal TIPO_CAMBIO { get; set; }
         public int ID_CAJA { get; set; }
         public string TIPO { get; set; }
+        public Boolean APERTURA { get; set; }
 
     }
 }

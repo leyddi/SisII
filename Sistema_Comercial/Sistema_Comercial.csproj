@@ -473,6 +473,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
@@ -480,6 +481,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Caja.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DetalleCaja.cs" />
     <Compile Include="Models\DetallePago.cs" />
@@ -2370,6 +2372,7 @@
     <Content Include="Vendors\iCheck\.bower.json" />
     <Content Include="Vendors\iCheck\bower.json" />
     <Content Include="Vendors\iCheck\icheck.jquery.json" />
+    <Content Include="Views\Caja\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Vendors\moment\moment.d.ts" />

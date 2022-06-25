@@ -1,0 +1,89 @@
+﻿@model Sistema_Comercial.Models.Caja
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Caja</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FECHA_APERTURA, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FECHA_APERTURA, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FECHA_APERTURA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SALDO_INICIAL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SALDO_INICIAL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SALDO_INICIAL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-horizontal" id="PayForm">
+            <div class="form-group" id="pay_index">
+                <label class="control-label col-md-2">MONEDA: </label>
+                <div class="col-md-3">
+                    <input id="Monto_Pago" type="number" required="required" step="0.01" min="0" class="form-control">
+                </div>
+                <label class="control-label col-md-1">MONEDA: </label>
+                <div class="col-md-3">
+                    <select id="monedas" class="form-control"> </select>
+                </div>
+                <label class="control-label col-md-1">TC : </label>
+                <div class="col-md-2">
+                    <input id="Monto_TC" type="number" required="required" step="0.01" min="0" class="form-control">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TOTAL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TOTAL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TOTAL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+@section Scripts
+ {
+    <script>
+        $(document).ready(function () {
+            var monedas;
+            $.ajax({
+                'async': false,
+                'type': "GET",
+                'global': false,
+                'dataType': 'html',
+                'url': "/Caja/GetMonedas",
+                'data': {},
+                'success': function (data) {
+                    debugger;
+                    monedas = JSON.parse(data);
+                    for (var i = 0; i < monedas.length; i++) {
+                        $('#monedas').append('<option value="' + monedas[i]["ID"] + '">' + monedas[i]["DESCRIPCION"] + '</option>');
+                    }
+
+                }
+            });
+            return monedas;
+        });
+
+    </script>
+}

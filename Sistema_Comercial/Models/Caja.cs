@@ -10,6 +10,7 @@ namespace Sistema_Comercial.Models
         public DateTime FECHA_APERTURA { get; set; }
         public decimal SALDO_INICIAL { get; set; }
         public string MONEDA { get; set; }
+        public string ID_MONEDA { get; set; }
         public decimal TOTAL { get; set; }
     }
 }
