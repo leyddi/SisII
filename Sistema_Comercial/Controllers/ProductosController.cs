@@ -87,8 +87,6 @@ namespace Sistema_Comercial.Controllers
                         producto.CANTIDAD = objReader.GetDecimal(objReader.GetOrdinal("CANTIDAD"));
                         producto.ID = objReader.GetInt32(objReader.GetOrdinal("ID"));
                         producto.FECHAREGISTRO = objReader.GetDateTime(objReader.GetOrdinal("FECHAREGISTRO"));
-
-
                         productos.Add(producto);
                     }
                 }
