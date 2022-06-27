@@ -12,13 +12,15 @@ namespace Sistema_Comercial.Models
         [Required]
         public string CODIGO { get; set; }
         public string DESCRIPCION { get; set; }
+        [DataType(DataType.Currency)]
+        [Required]
         public decimal PVP { get; set; }
         public decimal TOTAL { get; set; } 
         [Range(0, 9999.99, ErrorMessage = "No se permiten números negativos")]
         [Required]
-        [DataType(DataType.Currency)]
         public decimal CANTIDAD { get; set; }
         public DateTime FECHAREGISTRO { get; set; }
+        [Required]
         public string MARCA { get; set; }
         public string MODELO { get; set; }
     }
