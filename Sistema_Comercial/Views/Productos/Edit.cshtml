@@ -1,0 +1,85 @@
+﻿@model Sistema_Comercial.Models.Productos
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<head>
+    <script>
+        if (ViewBag.showSuccessAlert)
+            {
+
+            alert('Los datos se grabaron corectamente');
+            }
+    </script>
+    
+
+</head>
+    <div class="form-horizontal">
+        <h4>Actualizaión de PVP</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+    <fieldset disabled>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODIGO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CODIGO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CODIGO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DESCRIPCION, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CANTIDAD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CANTIDAD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CANTIDAD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MARCA, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MARCA, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MARCA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MODELO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MODELO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MODELO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </fieldset>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PVP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PVP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PVP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+           
+
+        <div class="form-group">
+           
+                <div class="col-md-offset-2 col-md-10 mt-5">
+                    <input type="submit" value="Guardar PVP Nuevo" class="btn btn-success" />
+                </div>
+            
+        </div>
+    </div>
+    
+}
+
+<div>
+    @Html.ActionLink("Volver a lista de productos", "Index")
+</div>

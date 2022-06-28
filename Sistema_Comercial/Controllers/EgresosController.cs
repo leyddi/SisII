@@ -10,9 +10,9 @@ using System.Web.Mvc;
 
 namespace Sistema_Comercial.Controllers
 {
-    public class CajaController : Controller
+    public class EgresosController : Controller
     {
-        // GET: Caja
+        // GET: Egresos
         public ActionResult Index()
         {
             Usuario usuario = (Usuario)@Session["User"];

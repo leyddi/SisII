@@ -1,0 +1,15 @@
+USE SistemaComercial
+GO
+
+CREATE PROCEDURE uspEditarPrecioProducto
+@ID INT,
+@PI_PVP DECIMAL(6,2) = 0
+AS
+BEGIN
+
+	UPDATE PRODUCTOS set PVP = @PI_PVP 
+	WHERE ID = @ID
+
+
+END
+GO
