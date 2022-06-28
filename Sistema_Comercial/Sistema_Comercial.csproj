@@ -477,6 +477,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\SistemaController.cs" />
     <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -488,6 +489,7 @@
     <Compile Include="Models\Moneda.cs" />
     <Compile Include="Models\Pago.cs" />
     <Compile Include="Models\Productos.cs" />
+    <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Serie.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Ventas.cs" />
@@ -2373,6 +2375,7 @@
     <Content Include="Vendors\iCheck\bower.json" />
     <Content Include="Vendors\iCheck\icheck.jquery.json" />
     <Content Include="Views\Caja\Index.cshtml" />
+    <Content Include="Views\Sistema\Usuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Vendors\moment\moment.d.ts" />
