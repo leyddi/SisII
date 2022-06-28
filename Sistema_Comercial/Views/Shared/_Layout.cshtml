@@ -65,8 +65,8 @@
                                 @if (@ViewBag.Rol == 1)
                                 {
                                     <li><a href=".."><i class="fa fa-dropbox"></i> Compras</a></li>
-                                    <li><a href=".."><i class="fa fa-money"></i> Caja</a></li>
-                                    <li><a href=".."><i class="fa fa-calculator"></i> Egresos</a></li>
+                                    <li><a href="@Url.Action("Index", "Caja")"><i class="fa fa-money"></i> Caja</a></li>
+                                    <li><a href="@Url.Action("Index", "Egresos")"><i class="fa fa-calculator"></i> Egresos</a></li>
                                     <li><a href="@Url.Action("Index", "Productos")"><i class="fa fa-archive"></i> Productos</a></li>
 
 

@@ -25,6 +25,9 @@ namespace Sistema_Comercial.Controllers
         [HttpPost]
         public ActionResult Index(Productos productos)
         {
+            Usuario usuario = (Usuario)@Session["User"];
+            ViewBag.NombreUsuario = usuario.Nombres;
+            ViewBag.Rol = usuario.IdRol;
             ConnectionStringSettings cadenaDataBase = ConfigurationManager.ConnectionStrings["SistemaConnection"];
             
             using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
@@ -99,13 +102,16 @@ namespace Sistema_Comercial.Controllers
 
         public ActionResult Edit(int ID)
         {
+            Usuario usuario = (Usuario)@Session["User"];
+            ViewBag.NombreUsuario = usuario.Nombres;
+            ViewBag.Rol = usuario.IdRol;
             ConnectionStringSettings cadenaDataBase = ConfigurationManager.ConnectionStrings["SistemaConnection"];
             Productos producto = new Productos();
             using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
             {
 
                 SqlCommand sqlCommand = new SqlCommand("uspObtenerProducto", connection);
-                sqlCommand.Parameters.AddWithValue("@ID", ID);
+                sqlCommand.Parameters.AddWithValue("@PI_CODIGO", ID);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
                 connection.Open();
@@ -132,7 +138,9 @@ namespace Sistema_Comercial.Controllers
         public ActionResult Edit(Productos productos)
         {
 
-
+            Usuario usuario = (Usuario)@Session["User"];
+            ViewBag.NombreUsuario = usuario.Nombres;
+            ViewBag.Rol = usuario.IdRol;
             ConnectionStringSettings cadenaDataBase = ConfigurationManager.ConnectionStrings["SistemaConnection"];
 
             using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
@@ -169,12 +177,15 @@ namespace Sistema_Comercial.Controllers
 
         public ActionResult Edit2(int ID)
         {
+            Usuario usuario = (Usuario)@Session["User"];
+            ViewBag.NombreUsuario = usuario.Nombres;
+            ViewBag.Rol = usuario.IdRol;
             ConnectionStringSettings cadenaDataBase = ConfigurationManager.ConnectionStrings["SistemaConnection"];
             Productos producto = new Productos();
             using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
             {
 
-                SqlCommand sqlCommand = new SqlCommand("uspObtenerProducto", connection);
+                SqlCommand sqlCommand = new SqlCommand("uspObtenerProductoId", connection);
                 sqlCommand.Parameters.AddWithValue("@ID", ID);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
