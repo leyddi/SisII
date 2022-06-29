@@ -98,7 +98,7 @@ namespace Sistema_Comercial.Controllers
                     SqlCommand sqlCommand = new SqlCommand("uspRegistrarDetalleCaja", connection);
                     sqlCommand.Parameters.AddWithValue("@PI_MONTO", detallePago.DETALLECAJA.MONTO);
                     sqlCommand.Parameters.AddWithValue("@PI_MONTO_BS", detallePago.DETALLECAJA.MONTO_BS);
-                    sqlCommand.Parameters.AddWithValue("@PI_TIPO_CAMBIO", detallePago.DETALLECAJA.TIPO_CAMBIO);
+                    sqlCommand.Parameters.AddWithValue("@PI_TIPO_CAMBIO", detallePago.DETALLECAJA.TIPO_CAMBIO==0? 1: detallePago.DETALLECAJA.TIPO_CAMBIO);
                     sqlCommand.Parameters.AddWithValue("@PI_ID_VENTA", ventas.ID);
                     sqlCommand.Parameters.AddWithValue("@PI_ID_MONEDA", detallePago.DETALLECAJA.ID_MONEDA);
                     sqlCommand.Parameters.AddWithValue("@PI_ID_PAGO", ventas.PAGO.ID);
