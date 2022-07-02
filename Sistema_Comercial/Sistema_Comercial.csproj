@@ -471,6 +471,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\CajaController.cs" />
+    <Compile Include="Controllers\EgresosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
@@ -2376,6 +2377,7 @@
     <Content Include="Views\Productos\Edit.cshtml" />
     <Content Include="Views\Productos\Edit2.cshtml" />
     <Content Include="Views\Productos\Eliminar.cshtml" />
+    <Content Include="Views\Egresos\Index.cshtml" />
     <Content Include="Views\Sistema\List.cshtml" />
     <Content Include="Views\Sistema\Eliminar.cshtml" />
   </ItemGroup>
