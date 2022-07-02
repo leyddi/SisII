@@ -109,8 +109,8 @@ namespace Sistema_Comercial.Controllers
             using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
             {
 
-                SqlCommand sqlCommand = new SqlCommand("uspObtenerProducto", connection);
-                sqlCommand.Parameters.AddWithValue("@PI_CODIGO", ID);
+                SqlCommand sqlCommand = new SqlCommand("uspObtenerProductoId", connection);
+                sqlCommand.Parameters.AddWithValue("@ID", ID);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
                 connection.Open();
@@ -156,18 +156,14 @@ namespace Sistema_Comercial.Controllers
                //productos.ID = Convert.ToInt32(sqlCommand.Parameters["@PI_OUT"].Value);
                 connection.Close();
             }
-
-            if (productos.ID == -1)
+            
+            if (productos.ID <= 0)
             {
-                ViewData["Mensaje"] = "El código ya se encuentra asignado a otro producto";
-            }
-            if (productos.ID == 0)
-            {
-                ViewData["Mensaje"] = "Ocurrió un error al intentar registrar el producto";
+                TempData["SuccessMessage"] = "Ocurrió un error al intentar actualizar el PVP del producto";
             }
             if (productos.ID > 0)
             {
-                ViewData["Mensaje"] = "Registro exitoso";
+                TempData["SuccessMessage"] = "PVP actualizado";
             }
             ViewBag.showSuccessAlert = true;
             return RedirectToAction("Index");
@@ -258,7 +254,7 @@ namespace Sistema_Comercial.Controllers
             using (SqlConnection connection = new SqlConnection(cadenaDataBase.ConnectionString))
             {
 
-                SqlCommand sqlCommand = new SqlCommand("uspObtenerProducto", connection);
+                SqlCommand sqlCommand = new SqlCommand("uspObtenerProductoId", connection);
                 sqlCommand.Parameters.AddWithValue("@ID", ID);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 

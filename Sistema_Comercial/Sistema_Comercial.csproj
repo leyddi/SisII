@@ -2376,6 +2376,8 @@
     <Content Include="Views\Productos\Edit.cshtml" />
     <Content Include="Views\Productos\Edit2.cshtml" />
     <Content Include="Views\Productos\Eliminar.cshtml" />
+    <Content Include="Views\Sistema\List.cshtml" />
+    <Content Include="Views\Sistema\Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Vendors\moment\moment.d.ts" />

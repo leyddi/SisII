@@ -2,7 +2,7 @@ USE SistemaComercial
 GO
 
 
-CREATE PROCEDURE uspObtenerProducto
+CREATE PROCEDURE uspObtenerProductoId
 @ID int
 AS
 BEGIN
