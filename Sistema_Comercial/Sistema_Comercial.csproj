@@ -2383,6 +2383,8 @@
     <Content Include="Views\Egresos\Index.cshtml" />
     <Content Include="Views\Compras\Index.cshtml" />
     <Content Include="Views\Compras\Row.cshtml" />
+    <Content Include="Views\Sistema\List.cshtml" />
+    <Content Include="Views\Sistema\Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Vendors\moment\moment.d.ts" />

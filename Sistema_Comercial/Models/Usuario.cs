@@ -9,18 +9,30 @@ namespace Sistema_Comercial.Models
 {
     public class Usuario 
     {
-       public int Id { get; set; }
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar un Usuario")]
         [Display(Name = "Usuario")]
-
         public string NombreUsuario { get; set; }
-        [Display(Name = "Contraseña")]
 
+        [Required(ErrorMessage = "Debe ingresar una Contraseña")]
+        [DataType(DataType.Password)]
+        [StringLength(5, ErrorMessage = "La contraseña debe tener al menos 5 caracteres")]
+        [Display(Name = "Contraseña")]
         public string Contrasena { get; set; }
-       public string Nombres { get; set; }
-       public string Apellidos { get; set; }
-       public DateTime FechaRegistro { get; set; }
-       public int IdRol { get; set; }
-       public string Rol { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar al menos un Nombre")]
+        public string Nombres { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar al menos un Apellido")]
+        public string Apellidos { get; set; }
+       
+        [Display(Name = "Fecha de Registro")]
+        public DateTime FechaRegistro { get; set; }
+        
+        public int IdRol { get; set; }
+       
+        public string Rol { get; set; }
 
 
     }

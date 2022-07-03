@@ -1,0 +1,15 @@
+USE SistemaComercial
+GO
+
+CREATE PROCEDURE uspObtenerUsuarioID
+@ID int
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT * 
+	FROM USUARIO
+	WHERE ID = @ID
+
+END
+GO
