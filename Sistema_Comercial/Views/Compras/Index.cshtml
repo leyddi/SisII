@@ -1,0 +1,234 @@
+﻿@model Sistema_Comercial.Models.Compras
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Compras</h4>
+    <hr />
+    <h6>Proveedor</h6>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.PROVEEDOR.TIPODOCUMENTO, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            <select class="form-control" id="TipoDocumento">
+                @*<option value="1">Cédula</option>*@
+                <option value="2">RIF</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.PROVEEDOR.TIPODOCUMENTO, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.PROVEEDOR.NUMERODOCUMENTO, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.PROVEEDOR.NUMERODOCUMENTO, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PROVEEDOR.NUMERODOCUMENTO, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.PROVEEDOR.DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.PROVEEDOR.DESCRIPCION, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PROVEEDOR.DESCRIPCION, "", new { @class = "text-danger" })
+            <input id="ID_PROVEEDOR" hidden="hidden" />
+        </div>
+    </div>
+    <br /><br /><br />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SERIE, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SERIE, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SERIE, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+</div>
+
+<div class="form-horizontal">
+
+    <h6>Productos</h6>
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].CODIGO, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].CANTIDAD, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].PVP, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td> @Html.LabelFor(model => model.PRODUCTOS[0].TOTAL, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td></td>
+            </tr>
+            <tbody>
+                @for (var i = 0; i < Model.PRODUCTOS.Count; i++)
+                {
+
+                    <tr>
+                        <td>@Html.EditorFor(model => model.PRODUCTOS[i].CODIGO, new { htmlAttributes = new { @id = "Codigo", @required = "required", @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(model => model.PRODUCTOS[i].DESCRIPCION, new { htmlAttributes = new { @id = "Descripcion", @readonly = "readonly", @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(model => model.PRODUCTOS[i].CANTIDAD, new { htmlAttributes = new { @id = "Cantidad", @type = "number", @min = "0", @step = "0.01", @Value = 0, @class = "form-control" } })</td>
+                        <td>@Html.EditorFor(model => model.PRODUCTOS[i].PVP, new { htmlAttributes = new { @id = "Pvp", @class = "form-control" } })</td>
+                        <td>
+                            @Html.EditorFor(model => model.PRODUCTOS[i].TOTAL, new { htmlAttributes = new { @id = "Total", @readonly = "readonly", @class = "form-control" } })
+                        </td>
+                        <td>
+                            <input id="ID_PRODUCTO" hidden="hidden" />
+                            <button type="button" class="btn btn-default" id="addRow"><i class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TOTAL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TOTAL, new { htmlAttributes = new { @readonly = "readonly", @type = "number", @min = "0", @step = "0.01", @Value = 0, @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TOTAL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" id="save" value="Guardar" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+
+}
+
+@section Scripts
+ {
+    <script>
+            $(document).ready(function () {
+                var monedas;
+                $.ajax({
+                    'async': false,
+                    'type': "GET",
+                    'global': false,
+                    'dataType': 'html',
+                    'url': "/Ventas/GetMonedas",
+                    'data': {},
+                    'success': function (data) {
+                        debugger;
+                        monedas = JSON.parse(data);
+                        for (var i = 0; i < monedas.length; i++) {
+                            $('#monedas').append('<option value="' + monedas[i]["ID"] + '">' + monedas[i]["DESCRIPCION"] + '</option>');
+                        }
+
+                    }
+                });
+                return monedas;
+            });
+            $("#addRow").bind("click", function () {
+                $.get('/Compras/AddRow', function (template) {
+                    $('.table > tbody:last').append(template);
+                });
+            });
+    
+            $(document).on('change', '#Pvp', function () {
+                debugger;
+                var cantidad = $(this).parent().parent().find('#Cantidad').val();
+                var pvp = $(this).val();
+                var total = cantidad * pvp;
+                $(this).parent().parent().find('#Total').val(total);
+
+                var suma = 0;
+                $(".table").find('tr').each(function (i, el) {
+                    if (i > 0) {
+                        var $tds = $(this).find('td');
+                        console.log($tds.eq(4));
+                        suma = parseFloat($tds.eq(4).find("#Total").val()) + suma;
+                    }
+
+                });
+                $("#TOTAL").val(suma);
+            });
+
+            $(document).on('change', '#Cantidad', function () {
+                var codigo = $(this).parent().parent().find('#Codigo').val();
+                var producto = getProducto(codigo);
+                var cantidad = $(this).val();
+
+                var pvp = $(this).parent().parent().find('#Pvp').val();
+                var total = cantidad * pvp;
+                $(this).parent().parent().find('#Total').val(total);
+
+                var suma = 0;
+                $(".table").find('tr').each(function (i, el) {
+                    if (i > 0) {
+                        var $tds = $(this).find('td');
+                        console.log($tds.eq(4));
+                        suma = parseFloat($tds.eq(4).find("#Total").val()) + suma;
+                    }
+
+                });
+                $("#TOTAL").val(suma);
+
+
+            });
+            $(document).on('change', '#Codigo', function () {
+                var producto = getProducto($(this).val());
+                $(this).parent().parent().find('#Pvp').val(producto["PVP"]);
+                $(this).parent().parent().find('#Descripcion').val(producto["DESCRIPCION"]);
+                $(this).parent().parent().find('#ID_PRODUCTO').val(producto["ID"]);
+                debugger;
+            });
+            function getProducto(code) {
+                var producto;
+
+                $.ajax({
+                    'async': false,
+                    'type': "GET",
+                    'global': false,
+                    'dataType': 'html',
+                    'url': "/Compras/GetProduct?code=" + code,
+                    'data': {},
+                    'success': function (data) {
+                        debugger;
+                        producto = JSON.parse(data);
+
+                    }
+                });
+                debugger;
+                return producto;
+            }
+    
+              $(document).on('change', '#PROVEEDOR_NUMERODOCUMENTO', function () {
+                debugger;
+                $.get('/Compras/GetProveedor?TipoDocumento=' + $("#TipoDocumento").val()+'&NumeroDocumento='+$(this).val(), function (template) {
+                    if (template != null) {
+                        $("#PROVEEDOR_DESCRIPCION").val(template["DESCRIPCION"]);
+                        $("#ID_PROVEEDOR").val(template["ID"]);
+                    }
+                });
+            });
+            $(document).on('click', '#save', function () {
+                debugger;
+                var data = {
+                    TOTAL: $("#TOTAL").val(),
+                    SERIE: $("#SERIE").val(),
+
+                    PROVEEDOR: { ID: $("#ID_PROVEEDOR").val(), DESCRIPCION: $("#PROVEEDOR_DESCRIPCION").val(), NUMERODOCUMENTO: $("#PROVEEDOR_NUMERODOCUMENTO").val(), ID_TIPODOCUMENTO: $("#TipoDocumento").val() },
+                    PRODUCTOS: [],
+                };
+
+                $(".table").find('tr').each(function (i, el) {
+                    if (i > 0) {
+                        var $tds = $(this).find('td');
+                        var id_producto = parseInt($tds.eq(5).find("#ID_PRODUCTO").val());
+                        var cantidad = parseFloat($tds.eq(2).find("#Cantidad").val());
+                        var pvp = parseFloat($tds.eq(3).find("#Pvp").val());
+
+                        data["PRODUCTOS"].push({ CANTIDAD: cantidad, ID: id_producto, PVP: pvp });
+                    }
+
+                });
+                $.post('/Compras/Index', data).done(function (result) {
+                    alert('Registro Exitoso');
+                });
+            });
+
+    </script>
+}

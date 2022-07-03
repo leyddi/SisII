@@ -471,6 +471,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\CajaController.cs" />
+    <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\EgresosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
@@ -482,11 +483,13 @@
     </Compile>
     <Compile Include="Models\Caja.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Compras.cs" />
     <Compile Include="Models\DetalleCaja.cs" />
     <Compile Include="Models\DetallePago.cs" />
     <Compile Include="Models\Moneda.cs" />
     <Compile Include="Models\Pago.cs" />
     <Compile Include="Models\Productos.cs" />
+    <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Serie.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -2378,6 +2381,8 @@
     <Content Include="Views\Productos\Edit2.cshtml" />
     <Content Include="Views\Productos\Eliminar.cshtml" />
     <Content Include="Views\Egresos\Index.cshtml" />
+    <Content Include="Views\Compras\Index.cshtml" />
+    <Content Include="Views\Compras\Row.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Vendors\moment\moment.d.ts" />
