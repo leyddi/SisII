@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Sistema_Comercial.Models.Caja>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA_APERTURA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SALDO_INICIAL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MONEDA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_MONEDA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TOTAL)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHA_APERTURA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SALDO_INICIAL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MONEDA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_MONEDA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TOTAL)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

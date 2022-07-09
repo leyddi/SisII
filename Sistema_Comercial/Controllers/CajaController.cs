@@ -18,7 +18,41 @@ namespace Sistema_Comercial.Controllers
             Usuario usuario = (Usuario)@Session["User"];
             ViewBag.NombreUsuario = usuario.Nombres;
             ViewBag.Rol = usuario.IdRol;
+
+
+            //LLAMAS A UN SP QUE PREGUNTE SI HAY UNA CAJA ABIERTA
+
+
+            //if (RESULTADO == 1)
+            //{
             return View();
+
+
+            //}
+            //else {
+
+            //    return PartialView("~/Views/Caja/Cierre.cshtml");
+
+            //}
+
+        }
+
+        public ActionResult Cierre() {
+            Usuario usuario = (Usuario)@Session["User"];
+            ViewBag.NombreUsuario = usuario.Nombres;
+            ViewBag.Rol = usuario.IdRol;
+            List<Caja> listCaja = new List<Caja>();
+
+            return View(listCaja);
+        }
+        [HttpPost]
+        public ActionResult Cierre(Caja caja)
+        {
+            Usuario usuario = (Usuario)@Session["User"];
+            ViewBag.NombreUsuario = usuario.Nombres;
+            ViewBag.Rol = usuario.IdRol;
+
+            return PartialView("~/Views/Caja/Index.cshtml");
         }
         [HttpGet]
         public ActionResult GetMonedas()

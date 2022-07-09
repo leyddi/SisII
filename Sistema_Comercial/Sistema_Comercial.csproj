@@ -2385,6 +2385,7 @@
     <Content Include="Views\Compras\Row.cshtml" />
     <Content Include="Views\Sistema\List.cshtml" />
     <Content Include="Views\Sistema\Eliminar.cshtml" />
+    <Content Include="Views\Caja\Cierre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Vendors\moment\moment.d.ts" />
